@@ -47,8 +47,8 @@
                     </div>
                     <div class="mb-3">
                       <label for="phone" class="form-label">Phone Number</label>
-                      <input type="tel" class="form-control border-info" id="phone" placeholder="Enter phone number" required />
-                      <div class="invalid-feedback">Please enter your phone number.</div>
+                      <input type="tel" class="form-control border-info" id="phone" placeholder="Enter phone number" required pattern="[0-9]+" />
+                      <div class="invalid-feedback">Please enter a valid phone number (numbers only).</div>
                     </div>
                     <div class="mb-3">
                       <label for="gender" class="form-label">Gender</label>
@@ -62,7 +62,6 @@
                     </div>
                     <div class="d-grid gap-2">
                       <button type="submit" class="btn btn-dark">Register</button>
-                      <!-- Tombol register dengan kelas Bootstrap untuk warna biru dongker -->
                     </div>
                     <!-- Teks kecil di bawah tombol register -->
                     <p class="text-center mt-3">
@@ -72,6 +71,24 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Registration Success -->
+    <div class="modal fade" id="registrationSuccessModal" tabindex="-1" aria-labelledby="registrationSuccessLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="registrationSuccessLabel">Registration Successful</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            You have successfully registered!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -99,6 +116,7 @@
             function (event) {
               var password = document.getElementById("password").value;
               var confirmPassword = document.getElementById("confirm-password").value;
+              var phone = document.getElementById("phone").value;
 
               // Pengecekan kecocokan kata sandi
               if (password !== confirmPassword) {
@@ -111,6 +129,10 @@
               if (!form.checkValidity()) {
                 event.preventDefault();
                 event.stopPropagation();
+              } else {
+                event.preventDefault(); // Mencegah reload halaman
+                var registrationSuccessModal = new bootstrap.Modal(document.getElementById("registrationSuccessModal"));
+                registrationSuccessModal.show(); // Menampilkan modal jika pendaftaran berhasil
               }
 
               form.classList.add("was-validated");
